@@ -1,0 +1,27 @@
+FROM public.ecr.aws/lambda/python:3.12
+
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+# Set environment variables for uv
+# We use the CPU-only version of torch and torchvision
+ENV UV_EXTRA_INDEX_URL=https://download.pytorch.org/whl/cpu
+ENV UV_SYSTEM_PYTHON=1
+
+# Copy dependency files
+COPY pyproject.toml uv.lock ./
+
+# Install dependencies
+# We use --system to install into the Lambda environment's python
+# We use unsafe-best-match because some packages (like numpy) might be present on both indices
+RUN uv pip install --system --no-cache --index-strategy unsafe-best-match .
+
+# Copy the model files
+COPY model.onnx ./
+COPY model.onnx.data ./
+
+# Copy the lambda function code
+COPY lambda_function.py ./
+
+# Set the CMD to your handler
+CMD [ "lambda_function.lambda_handler" ]
