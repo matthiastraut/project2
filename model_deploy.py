@@ -74,8 +74,8 @@ async def predict(input_image):
     # print(class_names)
 
     return {
-        #"Identified Aircraft:": class_names[predicted_idx]
-        "Entire output": dict(zip(class_names, outputs[0][0].tolist()))
+        "Identified Aircraft:": class_names[predicted_idx]
+        #"Entire output": dict(zip(class_names, outputs[0][0].tolist()))
     }
 
 if __name__ == "__main__":

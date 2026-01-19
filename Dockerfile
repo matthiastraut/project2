@@ -10,14 +10,11 @@ WORKDIR /app
 # 1. We force the CPU-only version of torch and torchvision
 # 2. We enable system python so uv installs into the container's python
 ENV UV_EXTRA_INDEX_URL=https://download.pytorch.org/whl/cpu
-ENV UV_SYSTEM_PYTHON=1
-
 # Copy dependency files
 COPY pyproject.toml uv.lock ./
 
 # Install dependencies
-# We use --index-strategy unsafe-best-match because of the numpy version issue
-RUN uv pip install --system --no-cache --index-strategy unsafe-best-match .
+RUN uv sync --locked
 
 # Copy the model files
 COPY model.onnx ./
@@ -30,4 +27,4 @@ COPY model_deploy.py ./
 EXPOSE 9696
 
 # Run the application
-CMD ["python", "model_deploy.py"]
+CMD ["uv", "run", "model_deploy.py"]

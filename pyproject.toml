@@ -13,4 +13,5 @@ dependencies = [
     "torchvision>=0.24.1",
     "onnxruntime>=1.20.0",
     "uvicorn>=0.40.0",
+    "onnx>=1.20.1",
 ]
