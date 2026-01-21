@@ -19,7 +19,7 @@ The dataset can be downloaded via:
 
 ## Training
 
-All model training takes place in notebook.ipynb. The model is then saved as model.onnx. (The accurace of the model isn't fantastic. One way to improve it is to use a pre-trained model but the focus in this project was on the model training process.)
+All model training takes place in notebook.ipynb. The model is then saved as model.onnx. (The accuracy of the model isn't fantastic. One way to improve it is to use a pre-trained model but the focus in this project was on the model training process.)
 
 ## Deployment
 
